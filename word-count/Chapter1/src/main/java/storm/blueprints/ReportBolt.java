@@ -20,7 +20,12 @@ public class ReportBolt extends BaseRichBolt{
 		
 		String word = tuple.getStringByField("word");
 		Long count = tuple.getLongByField("count");
-		counts.put(word, count);
+		Long old_count = counts.get(word);
+		if(old_count == null){
+			counts.put(word, count);
+		}else{
+			counts.put(word, count+old_count);			
+		}
 	}
 
 	public void prepare(Map arg0, TopologyContext arg1, OutputCollector arg2) {

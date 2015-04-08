@@ -27,9 +27,11 @@ public class SentenceSpout extends BaseRichSpout {
 	 */
 	public void nextTuple() {
 		
-		this.collector.emit(new Values(sentences[index%sentences.length]));
-		index++;
-		Utils.waitForMillis(1);
+		if(index < sentences.length){
+			this.collector.emit(new Values(sentences[index%sentences.length]));
+			index++;
+			Utils.waitForMillis(1);
+		}
 	}
 	/*
 	 * from the ISpout interface and is called on the spout initialization
